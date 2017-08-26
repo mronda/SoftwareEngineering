@@ -1,0 +1,44 @@
+var http = require('http'),
+    fs = require('fs'),
+    url = require('url'),
+    port = 8080;
+
+/* Global variables */
+var listingData, server;
+
+var requestHandler = function(request, response) {
+
+  var parsedUrl = url.parse(request.url);
+
+  if(request.method == "GET")
+  {
+    if(url.parse(request.url).pathname == '/listings')
+    {
+      response.write(listingData);
+      response.end();
+    }
+  }
+
+  else{
+    response.writeHead(404, {"Content-Type": "text/plain"});
+    response.write("404 Not Found\n");
+    response.end();
+  }
+  /*
+    Your request handler should send listingData in the JSON format if a GET request
+    is sent to the '/listings' path. Otherwise, it should send a 404 error.
+
+    HINT: explore the request object and its properties
+    http://stackoverflow.com/questions/17251553/nodejs-request-object-documentation
+   */
+};
+
+fs.readFile('listings.json', 'utf8', function(err, data) {
+  /*
+    This callback function should save the data in the listingData variable,
+    then start the server.
+   */
+   server = http.createServer(requestHandler); // creater server and listen
+   listingData = data; // save data into listingData
+   server.listen(port); // listen on port
+});
