@@ -10,18 +10,17 @@ var requestHandler = function(request, response) {
 
   var parsedUrl = url.parse(request.url);
 
-  //if(request.method == "GET")
-  //{
     if(url.parse(request.url).pathname == '/listings')
     {
       response.write(listingData);
       response.end();
     }
-  //}
 
-  else{
+    else{
+    //response.statusCode = 404;
+    //response.end('Bad gateway error');
     response.writeHead(404, {"Content-Type": "text/plain"}); // sends response header to request
-    response.write("404 Not Found\n");
+    response.write("Bad gateway error");
     response.end(); // signals that all has been sent . Must be called on each response
   }
   /*
