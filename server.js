@@ -10,19 +10,19 @@ var requestHandler = function(request, response) {
 
   var parsedUrl = url.parse(request.url);
 
-  if(request.method == "GET")
-  {
+  //if(request.method == "GET")
+  //{
     if(url.parse(request.url).pathname == '/listings')
     {
       response.write(listingData);
       response.end();
     }
-  }
+  //}
 
   else{
-    response.writeHead(404, {"Content-Type": "text/plain"});
+    response.writeHead(404, {"Content-Type": "text/plain"}); // sends response header to request
     response.write("404 Not Found\n");
-    response.end();
+    response.end(); // signals that all has been sent . Must be called on each response
   }
   /*
     Your request handler should send listingData in the JSON format if a GET request
@@ -38,7 +38,8 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
     This callback function should save the data in the listingData variable,
     then start the server.
    */
-   server = http.createServer(requestHandler); // creater server and listen
+   server = http.createServer(requestHandler); // creater server and listen  this takes a callback
+   //function which in this case is a var that holds the requestHandler on top
    listingData = data; // save data into listingData
    server.listen(port); // listen on port
 });
