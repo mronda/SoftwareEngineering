@@ -17,8 +17,6 @@ var requestHandler = function(request, response) {
     }
 
     else{
-    //response.statusCode = 404;
-    //response.end('Bad gateway error');
     response.writeHead(404, {"Content-Type": "text/plain"}); // sends response header to request
     response.write("Bad gateway error");
     response.end(); // signals that all has been sent . Must be called on each response
